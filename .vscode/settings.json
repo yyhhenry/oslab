@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "*.m": "matlab",
+        "*.json": "jsonc",
+        "*.mpp": "cpp",
+        "LICENSE": "plaintext",
+        "*.sql": "sql",
+        "*.json5": "jsonc",
+        "*.html": "html",
+        "sched.h": "c",
+        "kernel.h": "c",
+        "string.h": "c",
+        "types.h": "c",
+        "head.h": "c"
+    }
+}
