@@ -4,7 +4,7 @@ vgaromimage: file=$OSLAB_PATH/env/bochs/vgabios.bin
 floppya: 1_44="$OSLAB_PATH/linux-0.11/Image", status=inserted
 ata0-master: type=disk, path="$OSLAB_PATH/hdc-0.11.img", mode=flat, cylinders=204, heads=16, spt=38
 boot: a
-log: $OSLAB_PATH/env/bochs-out.log
+log: $OSLAB_PATH/bochs-out.log
 #parport1: enable=0
 vga_update_interval: 300000
 keyboard_serial_delay: 200
