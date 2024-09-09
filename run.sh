@@ -6,7 +6,10 @@ make -C $OSLAB_PATH
 
 if [ ! -e "$OSLAB_PATH/env/hdc/umounted" ]; then
 	echo umount env/hdc first
-	exit 1
+	sudo umount $OSLAB_PATH/env/hdc
+	if [ "$?" != "0" ]; then
+		exit
+	fi
 fi
 
 $BOCHS_PATH/bochs-gdb -q -f $BOCHS_PATH/bochsrc.bxrc
