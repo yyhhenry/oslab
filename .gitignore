@@ -2,3 +2,4 @@
 *.log
 linux-0.11/Image
 /hdc-0.11.img
+.vscode/
