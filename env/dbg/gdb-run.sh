@@ -1,6 +1,6 @@
 #!/bin/bash
 export DBG_PATH=$(dirname `which $0`)
-export OSLAB_PATH="$DBG_PATH/.."
+export OSLAB_PATH="$DBG_PATH/../.."
 
 if [ ! -e "$OSLAB_PATH/hdc/umounted" ]; then
 	echo umount hdc first
