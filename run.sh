@@ -2,8 +2,6 @@
 export OSLAB_PATH=$(dirname `which $0`)
 export BOCHS_PATH="$OSLAB_PATH/env/bochs"
 
-make -C $OSLAB_PATH
-
 if [ ! -e "$OSLAB_PATH/env/hdc/umounted" ]; then
 	echo umount env/hdc first
 	sudo umount $OSLAB_PATH/env/hdc
