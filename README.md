@@ -22,7 +22,7 @@ sudo apt install ./env/gcc-3.4-deb/gcc-3.4_3.4.6-6ubuntu2_amd64.deb
 # 将镜像文件放置到根目录
 cp env/hdc-0.11.img.bak ./hdc-0.11.img
 
-# 编译内核
+# 编译内核 (可选，运行时会自动构建)
 ## xmake: https://xmake.io/#/zh-cn/guide/installation
 xmake build image
 
