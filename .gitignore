@@ -7,3 +7,4 @@ linux-0.11/Image
 .vscode/
 build/
 .xmake/
+env/hdc/*
