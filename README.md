@@ -23,22 +23,22 @@ sudo apt install ./env/gcc-3.4-deb/gcc-3.4_3.4.6-6ubuntu2_amd64.deb
 cp env/hdc-0.11.img.bak ./hdc-0.11.img
 
 # 编译内核
-make all
+## xmake: https://xmake.io/#/zh-cn/guide/installation
+xmake build image
 
 # 安装缺失的库
+## 如果遇到各种缺失so文件的情况，因为这个环境比较古老，你需要手动安装缺失文件的**i386版本**。
+## 例如，如果提示缺失`libX11.so.6`，你需要`libx11-6:i386`，
+## 如果提示缺失`libSM.so.1`，你需要安装`libsm6:i386`。
+## 以此类推，按照缺少的lib的名字，去掉中间的`.so.`，改成全小写，
+## 如果数字相连则加上`-`，然后加上`:i386`，就是你需要安装的包名。
 sudo apt install libx11-6:i386 libsm6:i386 g++-multilib
 
 # 运行
 ./run.sh
 
 # 挂载（可选）
-# 不要同时挂载和运行
-# 无法在WSL中挂载，考虑使用Codespaces，无需安装其他依赖，直接mount即可
+## 不要同时挂载和运行
+## 无法在WSL中挂载，考虑使用Codespaces，无需安装其他依赖，直接mount即可
 sudo ./env/mount.sh
 ```
-
-如果遇到各种缺失so文件的情况，因为这个环境比较古老，你需要手动安装缺失文件的**i386版本**。
-
-例如，如果提示缺失`libX11.so.6`，你需要`libx11-6:i386`，如果提示缺失`libSM.so.1`，你需要安装`libsm6:i386`。
-
-以此类推，按照缺少的lib的名字，去掉中间的`.so.`，改成全小写，如果数字相连则加上`-`，然后加上`:i386`，就是你需要安装的包名。
