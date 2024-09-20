@@ -36,11 +36,13 @@ sudo apt install libx11-6:i386 libsm6:i386 g++-multilib
 # 运行
 ./run.sh
 
-# 挂载 (`./mount.sh`使用`guestmount`，无需root权限)
+# 挂载
+## 最好先运行一次`./run.sh`，然后再挂载
+## 不要同时挂载和运行，可能损坏文件系统
 sudo apt install libguestfs-tools linux-image-generic
 # libguestfs-test-tool # 测试是否安装成功
 # sudo chmod +r /boot/vmlinuz-5.15.0-122-generic # 修复权限，注意改成你的版本
 # sudo chmod 0666 /dev/kvm # 修复权限
 # export LIBGUESTFS_BACKEND=direct # 建议不要设置，但如果前面的命令无法解决你的问题，可以尝试设置这个环境变量
-./mount.sh
+./mount.sh # 无需root权限
 ```
