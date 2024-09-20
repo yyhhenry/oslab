@@ -50,7 +50,7 @@ keyboard_interrupt:
 	je set_e0
 	cmpb $0xe1,%al
 	je set_e1
-	call key_table(,%eax,4)
+	call *key_table(,%eax,4)
 	movb $0,e0
 e0_e1:	inb $0x61,%al
 	jmp 1f
