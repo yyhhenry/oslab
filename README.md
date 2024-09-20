@@ -26,7 +26,7 @@ cp env/hdc-0.11.img.bak ./hdc-0.11.img
 make all
 
 # 安装缺失的库
-sudo apt install libx11-6:i386 libsm6:i386
+sudo apt install libx11-6:i386 libsm6:i386 g++-multilib
 
 # 运行
 ./run.sh
