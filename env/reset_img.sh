@@ -1,9 +1,8 @@
 #!/bin/bash
-export OSLAB_PATH=$(dirname `which $0`)
-export BOCHS_PATH="$OSLAB_PATH/env/bochs"
+export ENV_PATH=$(dirname `which $0`)
+export OSLAB_PATH="$ENV_PATH/.."
 
-xmake build image
-
+cp $ENV_PATH/hdc-0.11.img.bak $OSLAB_PATH/hdc-0.11.img
 if [ ! -e "$OSLAB_PATH/env/hdc/umounted" ]; then
 	echo umount env/hdc
 	mkdir -p ./env/hdc
@@ -13,5 +12,3 @@ if [ ! -e "$OSLAB_PATH/env/hdc/umounted" ]; then
 		exit
 	fi
 fi
-
-$BOCHS_PATH/bochs-gdb -q -f $BOCHS_PATH/bochsrc.bxrc
