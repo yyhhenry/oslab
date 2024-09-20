@@ -6,7 +6,7 @@ xmake build image
 
 if [ ! -e "$OSLAB_PATH/env/hdc/umounted" ]; then
 	echo umount env/hdc first
-	sudo guestumount $OSLAB_PATH/env/hdc
+	sudo guestunmount $OSLAB_PATH/env/hdc
 	touch $OSLAB_PATH/env/hdc/umounted
 	if [ "$?" != "0" ]; then
 		exit

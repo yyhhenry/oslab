@@ -41,5 +41,5 @@ sudo apt install libx11-6:i386 libsm6:i386 g++-multilib
 ## 不要同时挂载和运行
 ## 无法在WSL中挂载，考虑使用Codespaces，无需安装其他依赖，直接mount即可
 sudo apt install libguestfs-tools linux-image-generic
-sudo ./mount.sh
+./mount.sh
 ```
