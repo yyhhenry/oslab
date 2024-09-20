@@ -1,6 +1,9 @@
 #!/bin/bash
 if [ -e "env/hdc/umounted" ]; then
     rm env/hdc/umounted
+else
+    echo "umount env/hdc first"
+    exit
 fi
 export LIBGUESTFS_BACKEND=direct
 # Try `libguestfs-test-tool` if you have any problem

@@ -8,8 +8,7 @@
 
 - 可以使用物理机，必须包含图形化界面。
 - 可以使用虚拟机，必须包含图形化界面。
-- 可以使用WSLg（Windows平台安装WSL2得到），配置和连接VSCode比较方便，但是请用Codespaces解决无法挂载Minix文件系统的问题。
-- **不可以**仅使用Codespaces，因为没有图形化界面。
+- 可以使用WSLg（Windows平台安装WSL2得到），配置和连接VSCode比较方便。
 
 ## Usage
 
@@ -37,9 +36,9 @@ sudo apt install libx11-6:i386 libsm6:i386 g++-multilib
 # 运行
 ./run.sh
 
-# 挂载（可选）
-## 不要同时挂载和运行
-## 无法在WSL中挂载，考虑使用Codespaces，无需安装其他依赖，直接mount即可
+# 挂载 (`./mount.sh`使用`guestmount`，无需root权限)
 sudo apt install libguestfs-tools linux-image-generic
+# libguestfs-test-tool # 测试是否安装成功
+# sudo chmod +r /boot/vmlinuz-5.15.0-122-generic # 修复权限，注意改成你的版本
 ./mount.sh
 ```
