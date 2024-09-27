@@ -41,8 +41,12 @@ sudo apt install libx11-6:i386 libsm6:i386 g++-multilib
 ## 不要同时挂载和运行，可能损坏文件系统
 sudo apt install libguestfs-tools linux-image-generic
 # libguestfs-test-tool # 测试是否安装成功
+# sudo chmod 0666 /dev/kvm # 若要使用kvm，需要这个权限
+# export LIBGUESTFS_BACKEND=direct # 但如果其他方式无法解决你的问题，可以尝试设置这个环境变量
+
+# 如果libguestfs-tools提示找不到模块，根据/boot和/lib/modules中的情况运行如下命令
 # sudo chmod +r /boot/vmlinuz-5.15.0-122-generic # 修复权限，注意改成你的版本
-# sudo chmod 0666 /dev/kvm # 修复权限
-# export LIBGUESTFS_BACKEND=direct # 建议不要设置，但如果前面的命令无法解决你的问题，可以尝试设置这个环境变量
+# sudo apt-get install --reinstall linux-modules-5.15.0-122-generic # 修复模块
+
 ./mount.sh # 无需root权限
 ```
