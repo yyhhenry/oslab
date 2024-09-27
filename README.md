@@ -31,7 +31,9 @@ xmake build image
 ## 如果提示缺失`libSM.so.1`，你需要安装`libsm6:i386`。
 ## 以此类推，按照缺少的lib的名字，去掉中间的`.so.`，改成全小写，
 ## 如果数字相连则加上`-`，然后加上`:i386`，就是你需要安装的包名。
-sudo apt install libx11-6:i386 libsm6:i386 g++-multilib
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install bin86 libx11-6:i386 libsm6:i386 libxpm4:i386 g++-multilib
 
 # 运行
 ./run.sh
@@ -41,8 +43,7 @@ sudo apt install libx11-6:i386 libsm6:i386 g++-multilib
 ## 不要同时挂载和运行，可能损坏文件系统
 sudo apt install libguestfs-tools linux-image-generic
 # libguestfs-test-tool # 测试是否安装成功
-# sudo chmod 0666 /dev/kvm # 若要使用kvm，需要这个权限
-# export LIBGUESTFS_BACKEND=direct # 但如果其他方式无法解决你的问题，可以尝试设置这个环境变量
+# sudo usermod -aG kvm $USER # 若要使用kvm，需要这个权限
 
 # 如果libguestfs-tools提示找不到模块，根据/boot和/lib/modules中的情况运行如下命令
 # sudo chmod +r /boot/vmlinuz-5.15.0-122-generic # 修复权限，注意改成你的版本
@@ -50,3 +51,7 @@ sudo apt install libguestfs-tools linux-image-generic
 
 ./mount.sh # 无需root权限
 ```
+
+## 题外话
+
+2024-09027笔者我的WSLg无法mount本实验的img，在guestmount中提示不认识minix文件系统，而`libguestfs-test-tool`返回成功，笔者实测以上方法也并不能解决，`/lib/modules`内的系统内核似乎对结果有影响。但是笔者重新安装WSL2后就可以正常使用了，原因不明。
