@@ -3,6 +3,10 @@ export OSLAB_PATH=$(dirname `which $0`)
 export BOCHS_PATH="$OSLAB_PATH/env/bochs"
 
 xmake build image
+if [ "$?" != "0" ]; then
+	echo "xmake build image failed"
+	exit
+fi
 
 if [ ! -e "$OSLAB_PATH/env/hdc/umounted" ]; then
 	echo umount env/hdc
