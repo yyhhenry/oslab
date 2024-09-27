@@ -52,6 +52,10 @@ sudo apt install libguestfs-tools linux-image-generic
 ./mount.sh # 无需root权限
 ```
 
-## 题外话
+## 留给后人
 
-2024-09027笔者我的WSLg无法mount本实验的img，在guestmount中提示不认识minix文件系统，而`libguestfs-test-tool`返回成功，笔者实测以上方法也并不能解决，`/lib/modules`内的系统内核似乎对结果有影响。但是笔者重新安装WSL2后就可以正常使用了，原因不明。
+2024-09-27 突发情况，笔者我的WSLg无法mount本实验的img，连接Codespaces也不能直接使用原版mount。
+
+WSLg中guestmount中提示不认识minix文件系统，而`libguestfs-test-tool`返回成功，笔者实测我提供的所有方法都不能解决，`/lib/modules`内的系统内核似乎对结果有影响，但具体条件不明。
+
+笔者重新安装了WSLg，恢复正常，留下了永久的谜团，如果你也遇到了这个问题，欢迎联系我。
