@@ -84,8 +84,8 @@ target("chr_drv/keyboard") -- 请手动`xmake build chr_drv/keyboard`编译
     set_kind("phony")
     set_default(false)
     after_build(function (target)
-        -- Compile keyboard.S to keyboard.s
-        os.vrun("gcc-3.4 -m32 -g -E -nostdinc -Ilinux-0.11/include -traditional linux-0.11/kernel/chr_drv/keyboard.S -o linux-0.11/kernel/chr_drv/keyboard.s")
+        -- Compile keyboard.s_ to keyboard.s
+        os.vrun("gcc-3.4 -m32 -g -E -nostdinc -Ilinux-0.11/include -traditional linux-0.11/kernel/chr_drv/keyboard.s_ -o linux-0.11/kernel/chr_drv/keyboard.s")
     end)
 
 target("chr_drv")
