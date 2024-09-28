@@ -52,10 +52,71 @@ sudo apt install libguestfs-tools linux-image-generic
 ./mount.sh # 无需root权限
 ```
 
-## 留给后人
+## 关于WSL2
 
-2024-09-27 突发情况，笔者我的WSLg无法mount本实验的img，连接Codespaces也不能直接使用原版mount。
+### 网络问题
 
-WSLg中guestmount中提示不认识minix文件系统，而`libguestfs-test-tool`返回成功，笔者实测我提供的所有方法都不能解决，`/lib/modules`内的系统内核似乎对结果有影响，但具体条件不明。
+Windows 找到或创建 `C:\Users\$env:USERNAME\.wslconfig`，`$env:USERNAME` 为你的用户名。
 
-笔者重新安装了WSLg，恢复正常，留下了永久的谜团，如果你也遇到了这个问题，欢迎联系我。
+```ini
+[wsl2]
+# kernel 这一行见下文Minix挂载
+# kernel=C:\\Windows\\System32\\lxss\\tools\\wsl2-kernel-minix
+networkingMode=mirrored
+dnsTunneling=true
+autoProxy=true
+```
+
+### HiDPI
+
+如果你认为界面太小，可以尝试调整HiDPI设置。
+
+Windows 找到或创建 `C:\Users\$env:USERNAME\.wslgconfig`，`$env:USERNAME` 为你的用户名。
+
+注意文件名中的`g`，这是WSLg的配置文件。
+
+```ini
+[system-distro-env]
+;hi-dpi
+WESTON_RDP_HI_DPI_SCALING=true
+WESTON_RDP_FRACTIONAL_HI_DPI_SCALING=false
+;100 to 500
+WESTON_RDP_DEBUG_DESKTOP_SCALING_FACTOR=200
+```
+
+### 挂载Minix
+
+本实验中需要挂载的hdc-0.11.img内部使用了Minix文件系统，如果你的WSL2不支持文件系统，尝试编译并替换内核。
+
+首先在 <https://github.com/microsoft/WSL2-Linux-Kernel/releases> 中找到 `uname -r` 对应的版本，下载 `.tar.gz` 文件，解压后放到你的WSL2中。
+
+```sh
+# 安装依赖
+sudo apt install build-essential flex bison dwarves libssl-dev libelf-dev bc
+
+# 配置选项
+make menuconfig
+# File systems ->
+#   Miscellaneous filesystems ->
+#     <*> Minix file-system support
+# Save & Exit
+
+# 编译
+make all -j$(nproc)
+
+# 将文件 arch/x86/boot/bzImage 
+# 拷贝到 Windows 中 C:\Windows\System32\lxss\tools\wsl2-kernel-minix
+WIN_USERNAME=$(powershell.exe '$env:USERNAME')
+WIN_USERNAME=${WIN_USERNAME//[$'\r\n']}
+cp arch/x86/boot/bzImage /mnt/c/Users/$WIN_USERNAME/wsl2-kernel-minix
+# On Windows Terminal - PowerShell (Admin)
+# mv C:\Users\$env:USERNAME\wsl2-kernel-minix C:\Windows\System32\lxss\tools\wsl2-kernel-minix
+# wsl --shutdown
+```
+
+随后在 Windows 上 `~\.wslconfig` 中配置：
+
+```ini
+[wsl2]
+kernel=C:\\Windows\\System32\\lxss\\tools\\wsl2-kernel-minix
+```
