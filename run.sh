@@ -8,14 +8,6 @@ if [ "$?" != "0" ]; then
 	exit
 fi
 
-if [ ! -e "$OSLAB_PATH/env/hdc/umounted" ]; then
-	echo umount env/hdc
-	mkdir -p ./env/hdc
-	guestunmount $OSLAB_PATH/env/hdc
-	touch $OSLAB_PATH/env/hdc/umounted
-	if [ "$?" != "0" ]; then
-		exit
-	fi
-fi
+$OSLAB_PATH/env/umount_if_needed.sh
 
 $BOCHS_PATH/bochs-gdb -q -f $BOCHS_PATH/bochsrc.bxrc

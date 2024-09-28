@@ -9,5 +9,4 @@ else
     exit
 fi
 
-# Try `libguestfs-test-tool` if you have any problem
-guestmount -a $OSLAB_PATH/hdc-0.11.img -m /dev/sda1 $MNT_PATH
+sudo mount -o loop,offset=1024 $OSLAB_PATH/hdc-0.11.img $MNT_PATH
