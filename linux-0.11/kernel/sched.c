@@ -90,7 +90,7 @@ void math_state_restore()
 		current->used_math=1;
 	}
 }
-
+#define USE_NAIIVE_TIME_STAMP
 /*
  *  'schedule()' is the scheduler function. This is GOOD CODE! There
  * probably won't be any reason to change this, as it should work well
@@ -137,9 +137,14 @@ void schedule(void)
 		}
 		if (c) break;
 		for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
+#ifdef USE_NAIIVE_TIME_STAMP
+			if (*p)
+				(*p)->counter += 5;
+#else
 			if (*p)
 				(*p)->counter = ((*p)->counter >> 1) +
-						(*p)->priority;
+								(*p)->priority;
+#endif
 	}
 	if (current != task[next]) {
 		if (current && current->state == TASK_RUNNING) {

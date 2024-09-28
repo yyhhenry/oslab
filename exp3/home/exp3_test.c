@@ -1,4 +1,6 @@
+#include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/times.h>
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -7,6 +9,46 @@
 
 #define HZ 100
 #define N 10
+#define FOR_RANGE 10000
+
+int sum = 0;
+
+void cpu_consuming_task()
+{
+	int i;
+	int num_sqr_sum;
+	int tmp;
+	for (i = 0; i < FOR_RANGE; i++) {
+		tmp = i;
+		num_sqr_sum = 0;
+		while (tmp) {
+			num_sqr_sum += (tmp % 10) * (tmp % 10);
+			tmp /= 10;
+		}
+		if (num_sqr_sum == i)
+			sum++;
+	}
+}
+
+void io_consuming_task()
+{
+	int i, fd;
+	char buf[100];
+	char filename[20];
+
+	sprintf(filename, "test_%d.txt", getpid());
+
+	fd = open(filename, O_CREAT | O_RDWR);
+	if (fd < 0) {
+		perror("open");
+		exit(1);
+	}
+	for (i = 0; i < FOR_RANGE; i++) {
+		sprintf(buf, "This is a test file %d\n", i);
+		write(fd, buf, 100);
+	}
+	close(fd);
+}
 
 void simulate_cpu_io(int last, int cpu_time, int io_time)
 {
@@ -15,29 +57,26 @@ void simulate_cpu_io(int last, int cpu_time, int io_time)
 	int sleep_time;
 
 	while (last > 0) {
-		/* CPU Burst >>>> */
 		times(&start_time);
 		do {
 			times(&current_time);
 			utime = current_time.tms_utime - start_time.tms_utime;
-			/* Add the system time, since we do not actually have any time-consuming calculations */
 			stime = current_time.tms_stime - start_time.tms_stime;
+			cpu_consuming_task();
 		} while (((utime + stime) / HZ) < cpu_time);
-		last -= cpu_time;
-		/* <<<< CPU Burst */
+		last -= ((utime + stime) / HZ);
 
 		if (last <= 0)
 			break;
 
-		/* IO Burst >>>> */
-		sleep_time = 0;
-		while (sleep_time < io_time) {
-			/* Sleep for 1 second simulating some IO operation */
-			sleep(1);
-			sleep_time++;
-		}
-		last -= sleep_time;
-		/* <<<< IO Burst */
+		times(&start_time);
+		do {
+			times(&current_time);
+			utime = current_time.tms_utime - start_time.tms_utime;
+			stime = current_time.tms_stime - start_time.tms_stime;
+			io_consuming_task();
+		} while (((utime + stime) / HZ) < io_time);
+		last -= io_time;
 	}
 }
 
