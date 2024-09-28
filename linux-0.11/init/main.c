@@ -158,6 +158,16 @@ static int printf(const char *fmt, ...)
 	va_end(args);
 	return i;
 }
+int fprintf(int f, char *fmt, ...)
+{
+	va_list args;
+	int i;
+
+	va_start(args, fmt);
+	write(f, printbuf, i = vsprintf(printbuf, fmt, args));
+	va_end(args);
+	return i;
+}
 
 static char * argv_rc[] = { "/bin/sh", NULL };
 static char * envp_rc[] = { "HOME=/", NULL };
