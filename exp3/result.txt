@@ -1,0 +1,205 @@
+PID 17 is forked from PID 12
+PID 16 is forked from PID 12
+PID 15 is forked from PID 12
+PID 14 is forked from PID 12
+PID 13 is forked from PID 12
+Parent PID 12
+Child PIDs 13 14 15 16 17
+
+
+Jiffies 5506, PID 12, -> Running
+Jiffies 5507, PID 13, Forked from 12
+Jiffies 5508, PID 13, Ready
+Jiffies 5508, PID 14, Forked from 12
+Jiffies 5508, PID 14, Ready
+Jiffies 5508, PID 15, Forked from 12
+Jiffies 5509, PID 15, Ready
+Jiffies 5509, PID 16, Forked from 12
+Jiffies 5510, PID 16, Ready
+Jiffies 5510, PID 17, Forked from 12
+Jiffies 5510, PID 17, Ready
+Jiffies 5511, PID 12, -> Waiting (Wait)
+Jiffies 5511, PID 17, -> Running
+Jiffies 5526, PID 17, -> Ready (Preempted)
+Jiffies 5526, PID 16, -> Running
+Jiffies 5541, PID 16, -> Ready (Preempted)
+Jiffies 5541, PID 15, -> Running
+Jiffies 5556, PID 15, -> Ready (Preempted)
+Jiffies 5556, PID 14, -> Running
+Jiffies 5571, PID 14, -> Ready (Preempted)
+Jiffies 5571, PID 13, -> Running
+Jiffies 5571, PID 17, -> Running
+Jiffies 5586, PID 17, -> Ready (Preempted)
+Jiffies 5586, PID 16, -> Running
+Jiffies 5601, PID 16, -> Ready (Preempted)
+Jiffies 5601, PID 15, -> Running
+Jiffies 5616, PID 15, -> Ready (Preempted)
+Jiffies 5616, PID 14, -> Running
+Jiffies 5631, PID 14, -> Ready (Preempted)
+Jiffies 5631, PID 17, -> Running
+Jiffies 5646, PID 17, -> Ready (Preempted)
+Jiffies 5646, PID 16, -> Running
+Jiffies 5661, PID 16, -> Ready (Preempted)
+Jiffies 5661, PID 15, -> Running
+Jiffies 5676, PID 13, -> Ready (Signal)
+Jiffies 5676, PID 15, -> Ready (Preempted)
+Jiffies 5676, PID 13, -> Running
+Jiffies 5676, PID 14, -> Running
+Jiffies 5691, PID 14, -> Ready (Preempted)
+Jiffies 5691, PID 17, -> Running
+Jiffies 5706, PID 17, -> Ready (Preempted)
+Jiffies 5706, PID 16, -> Running
+Jiffies 5721, PID 16, -> Ready (Preempted)
+Jiffies 5721, PID 15, -> Running
+Jiffies 5736, PID 15, -> Ready (Preempted)
+Jiffies 5736, PID 14, -> Running
+Jiffies 5751, PID 14, -> Ready (Preempted)
+Jiffies 5751, PID 17, -> Running
+Jiffies 5766, PID 17, -> Ready (Preempted)
+Jiffies 5766, PID 16, -> Running
+Jiffies 5781, PID 13, -> Ready (Signal)
+Jiffies 5781, PID 16, -> Ready (Preempted)
+Jiffies 5781, PID 13, -> Running
+Jiffies 5781, PID 15, -> Running
+Jiffies 5796, PID 15, -> Ready (Preempted)
+Jiffies 5796, PID 14, -> Running
+Jiffies 5811, PID 14, -> Ready (Preempted)
+Jiffies 5811, PID 17, -> Running
+Jiffies 5826, PID 17, -> Ready (Preempted)
+Jiffies 5826, PID 16, -> Running
+Jiffies 5841, PID 16, -> Ready (Preempted)
+Jiffies 5841, PID 15, -> Running
+Jiffies 5856, PID 15, -> Ready (Preempted)
+Jiffies 5856, PID 14, -> Running
+Jiffies 5871, PID 14, -> Ready (Preempted)
+Jiffies 5871, PID 17, -> Running
+Jiffies 5886, PID 13, -> Ready (Signal)
+Jiffies 5886, PID 17, -> Ready (Preempted)
+Jiffies 5886, PID 13, -> Running
+Jiffies 5886, PID 16, -> Running
+Jiffies 5901, PID 16, -> Ready (Preempted)
+Jiffies 5901, PID 15, -> Running
+Jiffies 5916, PID 15, -> Ready (Preempted)
+Jiffies 5916, PID 14, -> Running
+Jiffies 5931, PID 14, -> Ready (Preempted)
+Jiffies 5931, PID 17, -> Running
+Jiffies 5946, PID 17, -> Ready (Preempted)
+Jiffies 5946, PID 16, -> Running
+Jiffies 5961, PID 16, -> Ready (Preempted)
+Jiffies 5961, PID 15, -> Running
+Jiffies 5976, PID 15, -> Ready (Preempted)
+Jiffies 5976, PID 14, -> Running
+Jiffies 5991, PID 13, -> Ready (Signal)
+Jiffies 5991, PID 14, -> Ready (Preempted)
+Jiffies 5991, PID 13, -> Running
+Jiffies 5991, PID 17, -> Running
+Jiffies 6006, PID 17, -> Ready (Preempted)
+Jiffies 6006, PID 16, -> Running
+Jiffies 6021, PID 16, -> Ready (Preempted)
+Jiffies 6021, PID 15, -> Running
+Jiffies 6036, PID 15, -> Ready (Preempted)
+Jiffies 6036, PID 14, -> Running
+Jiffies 6051, PID 14, -> Ready (Preempted)
+Jiffies 6051, PID 17, -> Running
+Jiffies 6066, PID 17, -> Ready (Preempted)
+Jiffies 6066, PID 16, -> Running
+Jiffies 6081, PID 16, -> Ready (Preempted)
+Jiffies 6081, PID 15, -> Running
+Jiffies 6096, PID 13, -> Ready (Signal)
+Jiffies 6096, PID 15, -> Ready (Preempted)
+Jiffies 6096, PID 13, -> Running
+Jiffies 6096, PID 14, -> Running
+Jiffies 6111, PID 14, -> Ready (Preempted)
+Jiffies 6111, PID 17, -> Running
+Jiffies 6126, PID 17, -> Ready (Preempted)
+Jiffies 6126, PID 16, -> Running
+Jiffies 6141, PID 16, -> Ready (Preempted)
+Jiffies 6141, PID 15, -> Running
+Jiffies 6156, PID 15, -> Ready (Preempted)
+Jiffies 6156, PID 14, -> Running
+Jiffies 6171, PID 14, -> Ready (Preempted)
+Jiffies 6171, PID 17, -> Running
+Jiffies 6186, PID 17, -> Ready (Preempted)
+Jiffies 6186, PID 16, -> Running
+Jiffies 6201, PID 13, -> Ready (Signal)
+Jiffies 6201, PID 16, -> Ready (Preempted)
+Jiffies 6201, PID 13, -> Running
+Jiffies 6201, PID 15, -> Running
+Jiffies 6216, PID 15, -> Ready (Preempted)
+Jiffies 6216, PID 14, -> Running
+Jiffies 6231, PID 14, -> Ready (Preempted)
+Jiffies 6231, PID 17, -> Running
+Jiffies 6246, PID 17, -> Ready (Preempted)
+Jiffies 6246, PID 16, -> Running
+Jiffies 6261, PID 16, -> Ready (Preempted)
+Jiffies 6261, PID 15, -> Running
+Jiffies 6276, PID 15, -> Ready (Preempted)
+Jiffies 6276, PID 14, -> Running
+Jiffies 6291, PID 14, -> Ready (Preempted)
+Jiffies 6291, PID 17, -> Running
+Jiffies 6306, PID 13, -> Ready (Signal)
+Jiffies 6306, PID 17, -> Ready (Preempted)
+Jiffies 6306, PID 13, -> Running
+Jiffies 6306, PID 16, -> Running
+Jiffies 6321, PID 16, -> Ready (Preempted)
+Jiffies 6321, PID 15, -> Running
+Jiffies 6336, PID 15, -> Ready (Preempted)
+Jiffies 6336, PID 14, -> Running
+Jiffies 6341, PID 17, -> Running
+Jiffies 6356, PID 17, -> Ready (Preempted)
+Jiffies 6356, PID 16, -> Running
+Jiffies 6371, PID 16, -> Ready (Preempted)
+Jiffies 6371, PID 15, -> Running
+Jiffies 6386, PID 15, -> Ready (Preempted)
+Jiffies 6386, PID 17, -> Running
+Jiffies 6401, PID 17, -> Ready (Preempted)
+Jiffies 6401, PID 16, -> Running
+Jiffies 6416, PID 13, -> Ready (Signal)
+Jiffies 6416, PID 16, -> Ready (Preempted)
+Jiffies 6416, PID 13, -> Running
+Jiffies 6416, PID 15, -> Running
+Jiffies 6431, PID 15, -> Ready (Preempted)
+Jiffies 6431, PID 17, -> Running
+Jiffies 6446, PID 14, -> Ready (Signal)
+Jiffies 6446, PID 17, -> Ready (Preempted)
+Jiffies 6446, PID 14, -> Running
+Jiffies 6446, PID 16, -> Running
+Jiffies 6461, PID 16, -> Ready (Preempted)
+Jiffies 6461, PID 15, -> Running
+Jiffies 6476, PID 15, -> Ready (Preempted)
+Jiffies 6476, PID 17, -> Running
+Jiffies 6491, PID 17, -> Ready (Preempted)
+Jiffies 6491, PID 16, -> Running
+Jiffies 6506, PID 16, -> Ready (Preempted)
+Jiffies 6506, PID 15, -> Running
+Jiffies 6521, PID 13, -> Ready (Signal)
+Jiffies 6521, PID 15, -> Ready (Preempted)
+Jiffies 6521, PID 13, -> Running
+Jiffies 6521, PID 17, -> Running
+Jiffies 6536, PID 17, -> Ready (Preempted)
+Jiffies 6536, PID 16, -> Running
+Jiffies 6551, PID 14, -> Ready (Signal)
+Jiffies 6551, PID 16, -> Ready (Preempted)
+Jiffies 6551, PID 14, -> Running
+Jiffies 6551, PID 15, -> Running
+Jiffies 6566, PID 15, -> Ready (Preempted)
+Jiffies 6566, PID 17, -> Running
+Jiffies 6581, PID 17, -> Ready (Preempted)
+Jiffies 6581, PID 16, -> Running
+Jiffies 6596, PID 16, -> Ready (Preempted)
+Jiffies 6596, PID 15, -> Running
+Jiffies 6611, PID 15, -> Ready (Preempted)
+Jiffies 6611, PID 17, -> Running
+Jiffies 6626, PID 13, -> Ready (Signal)
+Jiffies 6626, PID 17, -> Ready (Preempted)
+Jiffies 6626, PID 13, -> Running
+Jiffies 6626, PID 12, -> Ready (Signal)
+Jiffies 6626, PID 12, -> Running
+Jiffies 6626, PID 13, Exited
+Jiffies 6627, PID 12, Exited
+Jiffies 6630, PID 16, -> Running
+Jiffies 6645, PID 16, -> Ready (Preempted)
+Jiffies 6645, PID 15, -> Running
+Jiffies 6660, PID 14, -> Ready (Signal)
+Jiffies 6660, PID 15, -> Ready (Preempted)
+Jiffies 6660, PID 14, -> Running
