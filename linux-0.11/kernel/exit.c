@@ -186,7 +186,7 @@ repeat:
 			return 0;
 		current->state=TASK_INTERRUPTIBLE;
 		if (current->pid) {
-			log_f("Jiffies %d, PID %d, Wait\n", jiffies, current->pid);
+			log_f("Jiffies %d, PID %d, -> Waiting (Wait)\n", jiffies, current->pid);
 		}
 		schedule();
 		if (!(current->signal &= ~(1<<(SIGCHLD-1))))
