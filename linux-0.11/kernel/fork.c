@@ -130,6 +130,7 @@ int copy_process(int nr,long ebp,long edi,long esi,long gs,long none,
 	set_tss_desc(gdt+(nr<<1)+FIRST_TSS_ENTRY,&(p->tss));
 	set_ldt_desc(gdt+(nr<<1)+FIRST_LDT_ENTRY,&(p->ldt));
 	p->state = TASK_RUNNING;	/* do this last, just in case */
+	log_f("Jiffies %d, PID %d, Ready\n", jiffies, last_pid);
 	return last_pid;
 }
 

@@ -15,6 +15,7 @@
 #include <linux/kernel.h>
 
 static char buf[1024];
+char log_f_buf[1024];
 
 extern int vsprintf(char * buf, const char * fmt, va_list args);
 
@@ -37,5 +38,16 @@ int printk(const char *fmt, ...)
 		"popl %0\n\t"
 		"pop %%fs"
 		::"r" (i):"ax","cx","dx");
+	return i;
+}
+
+int log_f(const char *fmt, ...)
+{
+	va_list args;
+	int i;
+
+	va_start(args, fmt);
+	write(3, log_f_buf, i = vsprintf(log_f_buf, fmt, args));
+	va_end(args);
 	return i;
 }
