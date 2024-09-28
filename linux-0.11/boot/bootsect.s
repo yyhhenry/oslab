@@ -8,7 +8,7 @@ SYSSIZE = 0x3000
 !	bootsect.s		(C) 1991 Linus Torvalds
 !
 ! bootsect.s is loaded at 0x7c00 by the bios-startup routines, and moves
-! iself out of the way to address 0x90000, and jumps there.
+! itself out of the way to address 0x90000, and jumps there.
 !
 ! It then loads 'setup' directly after itself (0x90200), and the system
 ! at 0x10000, using BIOS interrupts. 
@@ -132,7 +132,7 @@ root_defined:
 	seg cs
 	mov	root_dev,ax
 
-! after that (everyting loaded), we jump to
+! after that (everything loaded), we jump to
 ! the setup-routine loaded directly after
 ! the bootblock:
 
@@ -243,7 +243,7 @@ sectors:
 
 msg1:
 	.byte 13,10
-	.ascii "Ancient Linux is booting..."
+	.ascii "Ancient-Linux is booting..."
 	.byte 13,10,13,10
 
 .org 508
