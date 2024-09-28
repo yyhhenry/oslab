@@ -46,6 +46,10 @@ class ProcessStatus:
         self.run_time = 0
 
     def update_time(self, jiffies: int, state: str):
+        assert state in ["Ready", "Running", "Waiting", "Exited"]
+        assert (
+            self.jiffies <= jiffies or self.state == "Exited"
+        ), f"Time should be increasing, but got {self.pid}: {self.jiffies} -> {jiffies}"
         if self.state in ["Ready", "Wait"]:
             self.wait_time += jiffies - self.jiffies
         elif self.state == "Running":
@@ -56,6 +60,7 @@ class ProcessStatus:
 
 processes: dict[int, ProcessStatus] = {}
 
+start_time = -1
 end_time = 0
 
 with open(input_file, "r") as f:
@@ -70,6 +75,13 @@ with open(input_file, "r") as f:
         if not parts[1].startswith("PID"):
             continue
         pid = int(parts[1].split(" ")[1])
+        if pid == parent_pid:
+            if parts[2].split(" ")[0] == "Ready":
+                start_time = jiffies
+            if parts[2].split(" ")[0] == "Exited":
+                end_time = jiffies
+                break
+            continue
         if pid not in child_pids:
             continue
         if parts[2].startswith("Forked from"):
@@ -84,28 +96,34 @@ with open(input_file, "r") as f:
         else:
             processes[pid].update_time(jiffies, state)
 
-        end_time = jiffies
-
-
 sum_wait_time = 0
 sum_run_time = 0
-sum_total_time = 0
 count = 0
 
 for (pid, process) in processes.items():
     process.update_time(end_time, "Exited")
     wait_time = process.wait_time
     run_time = process.run_time
-    total_time = wait_time + run_time
-    print(f'PID: {pid}, Wait Time: {wait_time}, Run Time: {run_time}, Total Time: {total_time}')
+    print(f"PID: {pid}, Wait Time: {wait_time}, Run Time: {run_time}")
     
     sum_wait_time += wait_time
     sum_run_time += run_time
-    sum_total_time += total_time
     count += 1
         
 avg_wait_time = sum_wait_time / count
 avg_run_time = sum_run_time / count
-avg_total_time = sum_total_time / count
 
-print(f'Average Wait Time: {avg_wait_time}, Average Run Time: {avg_run_time}, Average Total Time: {avg_total_time}')
+
+def jiffies_to_seconds(jiffies: float | int) -> float:
+    return jiffies / 100.0
+
+
+avg_wait_time_sec = jiffies_to_seconds(avg_wait_time)
+avg_run_time_sec = jiffies_to_seconds(avg_run_time)
+total_time_sec = jiffies_to_seconds(end_time - start_time)
+
+print(
+    f"Average Wait Time: {avg_wait_time_sec:.3}s, Average Run Time: {avg_run_time_sec:.3}s"
+)
+
+print(f"Throughput: {count * 60 / total_time_sec:.6} sub_task/min")
