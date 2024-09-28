@@ -4,7 +4,7 @@
 void verify_area(void * addr,int count);
 volatile void panic(const char * str);
 int printf(const char * fmt, ...);
-int log_f(int f, char *buf, const char *fmt, ...);
+int log_f(const char *fmt, ...);
 int printk(const char * fmt, ...);
 int tty_write(unsigned ch,char * buf,int count);
 void * malloc(unsigned int size);
