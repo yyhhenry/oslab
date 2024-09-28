@@ -19,10 +19,12 @@ sudo apt install ./env/gcc-3.4-deb/cpp-3.4_3.4.6-6ubuntu2_amd64.deb
 sudo apt install ./env/gcc-3.4-deb/gcc-3.4_3.4.6-6ubuntu2_amd64.deb
 
 # 将镜像文件放置到根目录
+## 内有sudo，可能需要输入密码
 ./env/reset_img.sh
 
 # 编译内核 (可选，运行时会自动构建)
 ## xmake: https://xmake.io/#/zh-cn/guide/installation
+curl -fsSL https://xmake.io/shget.text | bash
 xmake build image
 
 # 安装缺失的库
@@ -39,17 +41,9 @@ sudo apt install bin86 libx11-6:i386 libsm6:i386 libxpm4:i386 g++-multilib
 ./run.sh
 
 # 挂载
-## 最好先运行一次`./run.sh`，然后再挂载
 ## 不要同时挂载和运行，可能损坏文件系统
-sudo apt install libguestfs-tools linux-image-generic
-# libguestfs-test-tool # 测试是否安装成功
-# sudo usermod -aG kvm $USER # 若要使用kvm，需要这个权限
-
-# 如果libguestfs-tools提示找不到模块，根据/boot和/lib/modules中的情况运行如下命令
-# sudo chmod +r /boot/vmlinuz-5.15.0-122-generic # 修复权限，注意改成你的版本
-# sudo apt-get install --reinstall linux-modules-5.15.0-122-generic # 修复模块
-
-./mount.sh # 无需root权限
+## 内有sudo，可能需要输入密码
+./mount.sh
 ```
 
 ## 关于WSL2
@@ -95,6 +89,7 @@ WESTON_RDP_DEBUG_DESKTOP_SCALING_FACTOR=200
 sudo apt install build-essential flex bison dwarves libssl-dev libelf-dev bc
 
 # 配置选项
+cp Microsoft/config-wsl .config
 make menuconfig
 # File systems ->
 #   Miscellaneous filesystems ->
@@ -120,3 +115,5 @@ cp arch/x86/boot/bzImage /mnt/c/Users/$WIN_USERNAME/wsl2-kernel-minix
 [wsl2]
 kernel=C:\\Windows\\System32\\lxss\\tools\\wsl2-kernel-minix
 ```
+
+如果你使用WSL2 Ubuntu 22.04，且内核版本为5.15.153.1，可以直接使用本仓库中的`wsl2-kernel-minix`。
