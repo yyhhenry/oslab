@@ -1,3 +1,5 @@
+#include <linux/sched.h>
+
 extern int sys_setup();
 extern int sys_exit();
 extern int sys_fork();
@@ -70,17 +72,12 @@ extern int sys_sgetmask();
 extern int sys_ssetmask();
 extern int sys_setreuid();
 extern int sys_setregid();
+extern int sys_sem_open();
+extern int sys_sem_wait();
+extern int sys_sem_signal();
+extern int sys_sem_close();
+extern int sys_buf_init();
+extern int sys_buf_push();
+extern int sys_buf_pop();
 
-fn_ptr sys_call_table[] = { sys_setup, sys_exit, sys_fork, sys_read,
-sys_write, sys_open, sys_close, sys_waitpid, sys_creat, sys_link,
-sys_unlink, sys_execve, sys_chdir, sys_time, sys_mknod, sys_chmod,
-sys_chown, sys_break, sys_stat, sys_lseek, sys_getpid, sys_mount,
-sys_umount, sys_setuid, sys_getuid, sys_stime, sys_ptrace, sys_alarm,
-sys_fstat, sys_pause, sys_utime, sys_stty, sys_gtty, sys_access,
-sys_nice, sys_ftime, sys_sync, sys_kill, sys_rename, sys_mkdir,
-sys_rmdir, sys_dup, sys_pipe, sys_times, sys_prof, sys_brk, sys_setgid,
-sys_getgid, sys_signal, sys_geteuid, sys_getegid, sys_acct, sys_phys,
-sys_lock, sys_ioctl, sys_fcntl, sys_mpx, sys_setpgid, sys_ulimit,
-sys_uname, sys_umask, sys_chroot, sys_ustat, sys_dup2, sys_getppid,
-sys_getpgrp, sys_setsid, sys_sigaction, sys_sgetmask, sys_ssetmask,
-sys_setreuid,sys_setregid };
+fn_ptr sys_call_table[] = {sys_setup, sys_exit, sys_fork, sys_read, sys_write, sys_open, sys_close, sys_waitpid, sys_creat, sys_link, sys_unlink, sys_execve, sys_chdir, sys_time, sys_mknod, sys_chmod, sys_chown, sys_break, sys_stat, sys_lseek, sys_getpid, sys_mount, sys_umount, sys_setuid, sys_getuid, sys_stime, sys_ptrace, sys_alarm, sys_fstat, sys_pause, sys_utime, sys_stty, sys_gtty, sys_access, sys_nice, sys_ftime, sys_sync, sys_kill, sys_rename, sys_mkdir, sys_rmdir, sys_dup, sys_pipe, sys_times, sys_prof, sys_brk, sys_setgid, sys_getgid, sys_signal, sys_geteuid, sys_getegid, sys_acct, sys_phys, sys_lock, sys_ioctl, sys_fcntl, sys_mpx, sys_setpgid, sys_ulimit, sys_uname, sys_umask, sys_chroot, sys_ustat, sys_dup2, sys_getppid, sys_getpgrp, sys_setsid, sys_sigaction, sys_sgetmask, sys_ssetmask, sys_setreuid, sys_setregid, sys_sem_open, sys_sem_wait, sys_sem_signal, sys_sem_close, sys_buf_init, sys_buf_push, sys_buf_pop};
