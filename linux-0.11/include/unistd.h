@@ -129,6 +129,7 @@
 #define __NR_ssetmask	69
 #define __NR_setreuid	70
 #define __NR_setregid	71
+#define __NR_share_memory_with 72
 
 #define _syscall0(type,name) \
 type name(void) \
