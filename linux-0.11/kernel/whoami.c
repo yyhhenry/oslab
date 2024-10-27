@@ -1,5 +1,6 @@
 #include <asm/segment.h>
 #include <errno.h>
+#include <linux/kernel.h>
 
 #define MAX_LEN_USERNAME 20
 

@@ -1,6 +1,3 @@
-# exp2 codes
-
-```cpp
 #define __LIBRARY__
 #include <errno.h>
 #include <stdio.h>
@@ -15,11 +12,11 @@ int main() {
 
     num = whoami(temp, N);
     if (num >= 0) {
-        printf("%s\n", temp);
+        printf("I am %s\n", temp);
     } else {
-        perror("whoami error");
+        printf("%d\n", num);
+        perror("`whoami` error");
         return -1;
     }
     return 0;
 }
-```
