@@ -9,7 +9,7 @@
 
 #define HZ 100
 #define N 10
-#define FOR_RANGE 10000
+#define FOR_RANGE 1000
 
 int sum = 0;
 
@@ -32,22 +32,7 @@ void cpu_consuming_task()
 
 void io_consuming_task()
 {
-	int i, fd;
-	char buf[100];
-	char filename[20];
-
-	sprintf(filename, "test_%d.txt", getpid());
-
-	fd = open(filename, O_CREAT | O_RDWR);
-	if (fd < 0) {
-		perror("open");
-		exit(1);
-	}
-	for (i = 0; i < FOR_RANGE; i++) {
-		sprintf(buf, "This is a test file %d\n", i);
-		write(fd, buf, 100);
-	}
-	close(fd);
+	sleep(2);
 }
 
 void simulate_cpu_io(int last, int cpu_time, int io_time)
@@ -95,11 +80,11 @@ pid_t spwan_task(int last, int cpu_time, int io_time)
 int main(int argc, char *argv[])
 {
 	pid_t p1, p2, p3, p4, p5;
-	p1 = spwan_task(N, 0, N);
-	p2 = spwan_task(N, 2, 8);
-	p3 = spwan_task(N, 5, 5);
-	p4 = spwan_task(N, 8, 2);
-	p5 = spwan_task(N, N, 0);
+	p1 = spwan_task(2 * N, 0, N);
+	p2 = spwan_task(2 * N, 2, 8);
+	p3 = spwan_task(2 * N, 5, 5);
+	p4 = spwan_task(2 * N, 8, 2);
+	p5 = spwan_task(2 * N, N, 0);
 
 	wait(NULL);
 
