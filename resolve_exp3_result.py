@@ -1,8 +1,9 @@
 import argparse
 
-
 arg_parser = argparse.ArgumentParser()
-arg_parser.add_argument('input', type=str, help='Input file containing the output of the experiment')
+arg_parser.add_argument(
+    "input", type=str, help="Input file containing the output of the experiment"
+)
 
 parsed_args = arg_parser.parse_args()
 
@@ -15,25 +16,26 @@ child_pids = []
 # *** Input file format ***
 # * There may be extra lines in the file, ignore them
 # Parent PID <pid>
-parent_stmt_pattern = 'Parent PID '
+parent_stmt_pattern = "Parent PID "
 # Child PIDs <pid> <pid> <pid> <pid> <pid> ...
-childs_stmt_pattern = 'Child PIDs '
+childs_stmt_pattern = "Child PIDs "
 
-with open(input_file, 'r') as f:
+with open(input_file, "r") as f:
     lines = f.readlines()
     for line in lines:
         if line.startswith(parent_stmt_pattern):
-            parent_pid = int(line[len(parent_stmt_pattern):])
+            parent_pid = int(line[len(parent_stmt_pattern) :])
         elif line.startswith(childs_stmt_pattern):
-            child_pids = list(map(int, line[len(childs_stmt_pattern):].split()))
+            child_pids = list(map(int, line[len(childs_stmt_pattern) :].split()))
 
-print(f'Parent PID: {parent_pid}, Child PIDs: {child_pids}')
+print(f"Parent PID: {parent_pid}, Child PIDs: {child_pids}")
 
 # *** Input file format Part 2 ***
 # Jiffies <time>, PID <pid>, <action>
 # <action> = <state> | '->' <state> | '->' <state> (<description>) | 'Forked from' <pid>
 # <state> = 'Ready' | 'Running' | 'Waiting' | 'Exited'
 # * We only care about the <state> field, ignore the "Forked from" action
+
 
 class ProcessStatus:
     def __init__(self, pid: int, state: str, jiffies: int):
@@ -42,42 +44,47 @@ class ProcessStatus:
         self.jiffies = jiffies
         self.wait_time = 0
         self.run_time = 0
-        
+
     def update_time(self, jiffies: int, state: str):
-        if self.state in ['Ready', 'Wait']:
+        if self.state in ["Ready", "Wait"]:
             self.wait_time += jiffies - self.jiffies
-        elif self.state == 'Running':
+        elif self.state == "Running":
             self.run_time += jiffies - self.jiffies
         self.state = state
         self.jiffies = jiffies
-        
+
+
 processes: dict[int, ProcessStatus] = {}
 
-with open(input_file, 'r') as f:
+end_time = 0
+
+with open(input_file, "r") as f:
     lines = f.readlines()
     for line in lines:
-        parts = [x.strip() for x in line.split(',')]
+        parts = [x.strip() for x in line.split(",")]
         if len(parts) < 3:
             continue
-        if not parts[0].startswith('Jiffies'):
+        if not parts[0].startswith("Jiffies"):
             continue
-        jiffies = int(parts[0].split(' ')[1])
-        if not parts[1].startswith('PID'):
+        jiffies = int(parts[0].split(" ")[1])
+        if not parts[1].startswith("PID"):
             continue
-        pid = int(parts[1].split(' ')[1])
+        pid = int(parts[1].split(" ")[1])
         if pid not in child_pids:
             continue
-        if parts[2].startswith('Forked from'):
+        if parts[2].startswith("Forked from"):
             continue
-        action_parts = parts[2].split(' ')
+        action_parts = parts[2].split(" ")
         state = action_parts[0]
-        if state == '->':
+        if state == "->":
             state = action_parts[1]
-            
+
         if pid not in processes:
             processes[pid] = ProcessStatus(pid, state, jiffies)
         else:
             processes[pid].update_time(jiffies, state)
+
+        end_time = jiffies
 
 
 sum_wait_time = 0
@@ -86,6 +93,7 @@ sum_total_time = 0
 count = 0
 
 for (pid, process) in processes.items():
+    process.update_time(end_time, "Exited")
     wait_time = process.wait_time
     run_time = process.run_time
     total_time = wait_time + run_time
