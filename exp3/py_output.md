@@ -20,6 +20,7 @@ sync
 cat exp3/default_pid.txt > exp3/result_naive.log
 cat env/hdc/var/process.log >> exp3/result_naive.log
 python3 resolve_exp3_result.py exp3/result_naive.log
+rm exp3/result_naive.log # (Optional)
 ```
 
 ```txt
@@ -53,6 +54,7 @@ sync
 cat exp3/default_pid.txt > exp3/result.log
 cat env/hdc/var/process.log >> exp3/result.log
 python3 resolve_exp3_result.py exp3/result.log
+rm exp3/result.log # (Optional)
 ```
 
 ```txt
