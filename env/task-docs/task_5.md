@@ -28,6 +28,6 @@ _syscall3(int, share_memory_with, int, key, int, size, unsigned long *, p_addr);
 
 注意用`put_page(page, addr)`关联物理页和内存地址时，中的addr需要额外加上`current->start_code`；而使用`put_fs_long(addr, p_addr)`来返回地址的时候，`addr`等于修改前的`current->brk`。
 
-注意在`mm/memory.c`中有关于释放已经释放的页的报错，你需要更改`mem_map`来避免这个问题。
+注意在`mm/memory.c`中有关于释放已经释放的页的报错，你需要更改`mem_map`来避免这个问题，可以选择创建`put_page_share`函数来补充`put_page`做不到的事情。
 
 用户程序可以通过`producer &`来启动一个后台进程，然后通过`consumer`来启动一个前台进程，这样就可以实现两个进程的共享内存通信，并同时观察两个进程的输出。
