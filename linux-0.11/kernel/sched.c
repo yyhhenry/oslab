@@ -108,16 +108,19 @@ void schedule(void)
 
 /* check alarm, wake up any interruptible tasks that have got a signal */
 
-	for(p = &LAST_TASK ; p > &FIRST_TASK ; --p)
+	for (p = &LAST_TASK; p > &FIRST_TASK; --p) {
 		if (*p) {
 			if ((*p)->alarm && (*p)->alarm < jiffies) {
-					(*p)->signal |= (1<<(SIGALRM-1));
-					(*p)->alarm = 0;
-				}
+				(*p)->signal |= (1 << (SIGALRM - 1));
+				(*p)->alarm = 0;
+			}
 			if (((*p)->signal & ~(_BLOCKABLE & (*p)->blocked)) &&
-			(*p)->state==TASK_INTERRUPTIBLE)
-				(*p)->state=TASK_RUNNING;
+				(*p)->state == TASK_INTERRUPTIBLE) {
+				(*p)->state = TASK_RUNNING;
+				log_f("Jiffies %d, PID %d, -> Ready (Signal)\n", jiffies, (*p)->pid);
+			}
 		}
+	}
 
 /* this is the scheduler proper: */
 
@@ -138,12 +141,21 @@ void schedule(void)
 				(*p)->counter = ((*p)->counter >> 1) +
 						(*p)->priority;
 	}
+	if (current != task[next]) {
+		if (current && current->state == TASK_RUNNING) {
+			log_f("Jiffies %d, PID %d, -> Ready (Preempted)\n", jiffies, current->pid);
+		}
+		log_f("Jiffies %d, PID %d, -> Running\n", jiffies, task[next]->pid);
+	}
 	switch_to(next);
 }
 
 int sys_pause(void)
 {
 	current->state = TASK_INTERRUPTIBLE;
+	// if (!current->pid) {
+	// 	log_f("Jiffies %d, PID %d, -> Waiting (Pause)\n", jiffies, current->pid);
+	// }
 	schedule();
 	return 0;
 }
@@ -159,9 +171,14 @@ void sleep_on(struct task_struct **p)
 	tmp = *p;
 	*p = current;
 	current->state = TASK_UNINTERRUPTIBLE;
+	if (current->pid) {
+		log_f("Jiffies %d, PID %d, -> Waiting (Sleep)\n", jiffies, current->pid);
+	}
 	schedule();
-	if (tmp)
-		tmp->state=0;
+	if (tmp) {
+		tmp->state = 0;
+		log_f("Jiffies %d, PID %d, -> Ready\n", jiffies, tmp->pid);
+	}
 }
 
 void interruptible_sleep_on(struct task_struct **p)
@@ -175,20 +192,27 @@ void interruptible_sleep_on(struct task_struct **p)
 	tmp=*p;
 	*p=current;
 repeat:	current->state = TASK_INTERRUPTIBLE;
+	if (current->pid) {
+		log_f("Jiffies %d, PID %d, -> Waiting (Sleep)\n", jiffies, current->pid);
+	}
 	schedule();
 	if (*p && *p != current) {
 		(**p).state=0;
+		log_f("Jiffies %d, PID %d, -> Ready (Wake up)\n", jiffies, (*p)->pid);
 		goto repeat;
 	}
 	*p=NULL;
-	if (tmp)
-		tmp->state=0;
+	if (tmp) {
+		tmp->state = 0;
+		log_f("Jiffies %d, PID %d, -> Ready (Wake up)\n", jiffies, tmp->pid);
+	}
 }
 
 void wake_up(struct task_struct **p)
 {
 	if (p && *p) {
 		(**p).state=0;
+		log_f("Jiffies %d, PID %d, -> Ready\n", jiffies, (*p)->pid);
 		*p=NULL;
 	}
 }

@@ -13,6 +13,7 @@
 #include <stddef.h>
 
 #include <linux/kernel.h>
+#include <linux/sched.h>
 
 static char buf[1024];
 char log_f_buf[1024];
@@ -44,10 +45,34 @@ int printk(const char *fmt, ...)
 int log_f(const char *fmt, ...)
 {
 	va_list args;
-	int i;
+	int i, fd;
+	struct file *file;
+	struct m_inode *inode;
 
 	va_start(args, fmt);
-	write(3, log_f_buf, i = vsprintf(log_f_buf, fmt, args));
+	i = vsprintf(log_f_buf, fmt, args);
 	va_end(args);
+
+	fd = 3;
+
+	if (!(file = task[0]->filp[fd])) {
+		if (task[0] && current) {
+			printk("file is NULL\n");
+		}
+		return -1;
+	}
+	inode = file->f_inode;
+	__asm__("push %%fs\n\t"
+			"push %%ds\n\t"
+			"pop %%fs\n\t"
+			"pushl %0\n\t"
+			"pushl $log_f_buf\n\t"
+			"pushl %1\n\t"
+			"pushl %2\n\t"
+			"call file_write\n\t"
+			"addl $12,%%esp\n\t"
+			"popl %0\n\t"
+			"pop %%fs" ::"r"(i),
+			"r"(file), "r"(inode) : "ax", "cx", "dx");
 	return i;
 }
