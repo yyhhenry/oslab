@@ -10,6 +10,8 @@
 - 可以使用虚拟机，必须包含图形化界面。
 - 可以使用WSLg（Windows平台安装WSL2得到），配置和连接VSCode比较方便。
 
+各个实验的最新代码在 `exp<id>-latest` 分支中，例如实验一在 `exp1-latest` 分支。
+
 ## Usage
 
 ```sh
