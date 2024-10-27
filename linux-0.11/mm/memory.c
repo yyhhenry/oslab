@@ -192,7 +192,7 @@ int copy_page_tables(unsigned long from,unsigned long to,long size)
  * This function puts a page in memory at the wanted address.
  * Only used in shared memory handling, while put_page is already called by another process.
  */
-unsigned long put_page_share(unsigned long page, unsigned long address)
+unsigned long put_page_shared(unsigned long page, unsigned long address)
 {
 	unsigned long tmp, *page_table;
 
