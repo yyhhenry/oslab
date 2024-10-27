@@ -12,6 +12,10 @@
 
 各个实验的最新代码在 `exp<id>-latest` 分支中，例如实验一在 `exp1-latest` 分支。
 
+需要更改磁盘镜像的实验，会提供`exp<id>/setup.sh`，并自动在磁盘镜像的`root`目录下提供类似`do_exp<id>.sh`的文件，以方便自动化完成实验，如果需要额外操作，请参考`exp<id>/`目录下所有`.md`文件。
+
+实验要求的简化版放在`env/task-docs/`中。
+
 ## Usage
 
 ```sh
