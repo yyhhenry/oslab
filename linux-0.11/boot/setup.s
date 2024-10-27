@@ -146,12 +146,12 @@ print_hex:
     	int	0x10
     	loop	print_digit
 
-    print_nl:
-   		mov	ax,#0xe0d 	! CR
-    	int	0x10
-    	mov	al,#0xa 	! LF
-    	int	0x10
-		ret
+	! Print the right padding and a star
+	call 	before_print
+	mov	bp, #right_pad_star
+	mov	cx, #10
+	call	after_print
+	ret
 
 ! } // print_hex
 
@@ -189,6 +189,9 @@ setup_msg: ! 25 bytes
 	.byte 13,10,13,10
 msg_stars: ! 30 bytes
 	.ascii "****************************"
+	.byte 13,10
+right_pad_star: ! 10 byte
+	.ascii "       *"
 	.byte 13,10
 
 .org 508
