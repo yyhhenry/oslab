@@ -80,16 +80,17 @@ target("blk_drv")
     add_cflags(kernel_cflags)
     add_files("linux-0.11/kernel/blk_drv/*.c")
 
-target("chr_drv/keyboard") -- 请手动`xmake build chr_drv/keyboard`编译
+target("chr_drv/keyboard")
     set_kind("phony")
-    set_default(false)
+    add_files("linux-0.11/kernel/chr_drv/keyboard_src/keyboard.S")
     after_build(function (target)
-        -- Compile keyboard.s_ to keyboard.s
-        os.vrun("gcc-3.4 -m32 -g -E -nostdinc -Ilinux-0.11/include -traditional linux-0.11/kernel/chr_drv/keyboard.s_ -o linux-0.11/kernel/chr_drv/keyboard.s")
+        -- Compile keyboard_src/keyboard.S to keyboard.s
+        os.vrun("bash linux-0.11/kernel/chr_drv/keyboard_src/update_keyboard.sh")
     end)
 
 target("chr_drv")
     set_kind("static")
+    add_deps("chr_drv/keyboard")
     set_targetdir("linux-0.11/kernel/chr_drv")
     set_filename("chr_drv.a")
     add_includedirs("linux-0.11/include")
