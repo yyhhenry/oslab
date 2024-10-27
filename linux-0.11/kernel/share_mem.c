@@ -10,6 +10,9 @@
 #endif
 #define SHARED_MEMORY_MAX 10
 
+#define LOW_MEM 0x100000
+#define MAP_NR(addr) (((addr) - LOW_MEM) >> 12)
+
 struct SharedMemoryBlock {
 	int key;
 	int size;
@@ -20,6 +23,7 @@ int sys_share_memory_with(int key, int size, unsigned long *p_addr)
 {
 	int i;
 	unsigned long page;
+	unsigned long mem_map_idx;
 	unsigned long addr;
 	cli();
 
@@ -36,7 +40,8 @@ int sys_share_memory_with(int key, int size, unsigned long *p_addr)
 			page = shared_memory_blocks[i].page;
 			addr = current->brk;
 			sys_brk(addr + PAGE_SIZE);
-			put_page(page, current->start_code + addr);
+			mem_map_idx = MAP_NR(addr);
+			put_page_share(page, current->start_code + addr);
 			put_fs_long(addr, p_addr);
 			sti();
 			return 0;

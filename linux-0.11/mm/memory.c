@@ -95,8 +95,7 @@ void free_page(unsigned long addr)
 	addr >>= 12;
 	if (mem_map[addr]--) return;
 	mem_map[addr]=0;
-	// Remove this line to support shared memory
-	// panic("trying to free free page");
+	panic("trying to free free page");
 }
 
 /*
@@ -187,6 +186,33 @@ int copy_page_tables(unsigned long from,unsigned long to,long size)
 	}
 	invalidate();
 	return 0;
+}
+
+/*
+ * This function puts a page in memory at the wanted address.
+ * Only used in shared memory handling, while put_page is already called by another process.
+ */
+unsigned long put_page_share(unsigned long page, unsigned long address)
+{
+	unsigned long tmp, *page_table;
+
+	/* NOTE !!! This uses the fact that _pg_dir=0 */
+
+	if (page < LOW_MEM || page >= HIGH_MEMORY)
+		printk("Trying to put page %p at %p\n", page, address);
+	mem_map[(page - LOW_MEM) >> 12]++;
+	page_table = (unsigned long *)((address >> 20) & 0xffc);
+	if ((*page_table) & 1)
+		page_table = (unsigned long *)(0xfffff000 & *page_table);
+	else {
+		if (!(tmp = get_free_page()))
+			return 0;
+		*page_table = tmp | 7;
+		page_table = (unsigned long *)tmp;
+	}
+	page_table[(address >> 12) & 0x3ff] = page | 7;
+	/* no need for invalidate */
+	return page;
 }
 
 /*
