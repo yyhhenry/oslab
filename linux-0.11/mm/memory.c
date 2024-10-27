@@ -95,7 +95,8 @@ void free_page(unsigned long addr)
 	addr >>= 12;
 	if (mem_map[addr]--) return;
 	mem_map[addr]=0;
-	panic("trying to free free page");
+	// Remove this line to support shared memory
+	// panic("trying to free free page");
 }
 
 /*
