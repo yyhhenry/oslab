@@ -129,6 +129,14 @@
 #define __NR_ssetmask	69
 #define __NR_setreuid	70
 #define __NR_setregid	71
+/* semaphore */
+#define __NR_sem_open 72
+#define __NR_sem_wait 73
+#define __NR_sem_signal 74
+#define __NR_sem_close 75
+#define __NR_buf_init 76
+#define __NR_buf_push 77
+#define __NR_buf_pop 78
 
 #define _syscall0(type,name) \
 type name(void) \
