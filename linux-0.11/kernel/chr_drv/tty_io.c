@@ -96,16 +96,24 @@ struct tty_struct tty_table[] = {
  * you can implement pseudo-tty's or something by changing
  * them. Currently not done.
  */
-struct tty_queue * table_list[]={
+struct tty_queue *table_list[] = {
 	&tty_table[0].read_q, &tty_table[0].write_q,
 	&tty_table[1].read_q, &tty_table[1].write_q,
-	&tty_table[2].read_q, &tty_table[2].write_q
-	};
-
+	&tty_table[2].read_q, &tty_table[2].write_q};
 void tty_init(void)
 {
 	rs_init();
 	con_init();
+}
+int input_mask = 0;
+int output_mask = 0;
+void toggle_input_mask()
+{
+	input_mask = !input_mask;
+}
+void toggle_output_mask()
+{
+	output_mask = !output_mask;
 }
 
 void tty_intr(struct tty_struct * tty, int mask)
@@ -218,8 +226,13 @@ void copy_to_cooked(struct tty_struct * tty)
 					PUTCH('^',tty->write_q);
 					PUTCH(c+64,tty->write_q);
 				}
-			} else
-				PUTCH(c,tty->write_q);
+			} else {
+				if (input_mask && isalnum(c)) {
+					PUTCH('*', tty->write_q);
+				} else {
+					PUTCH(c, tty->write_q);
+				}
+			}
 			tty->write(tty);
 		}
 		PUTCH(c,tty->secondary);
@@ -317,7 +330,11 @@ int tty_write(unsigned channel, char * buf, int nr)
 			}
 			b++; nr--;
 			cr_flag = 0;
-			PUTCH(c,tty->write_q);
+			if (output_mask && isalnum(c)) {
+				PUTCH('*', tty->write_q);
+			} else {
+				PUTCH(c, tty->write_q);
+			}
 		}
 		tty->write(tty);
 		if (nr>0)

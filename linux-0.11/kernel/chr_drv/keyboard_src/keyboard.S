@@ -521,8 +521,8 @@ key_table:
 	.long cursor,cursor,do_self,cursor	/* 48-4B up pgup - left */
 	.long cursor,cursor,do_self,cursor	/* 4C-4F n5 right + end */
 	.long cursor,cursor,cursor,cursor	/* 50-53 dn pgdn ins del */
-	.long none,none,do_self,func		/* 54-57 sysreq ? < f11 */
-	.long func,none,none,none		/* 58-5B f12 ? ? ? */
+	.long none,none,do_self,toggle_output_mask		/* 54-57 sysreq ? < f11 */
+	.long toggle_input_mask,none,none,none		/* 58-5B f12 ? ? ? */
 	.long none,none,none,none		/* 5C-5F ? ? ? ? */
 	.long none,none,none,none		/* 60-63 ? ? ? ? */
 	.long none,none,none,none		/* 64-67 ? ? ? ? */

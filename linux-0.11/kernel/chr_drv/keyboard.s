@@ -355,8 +355,8 @@ key_table:
  .long cursor,cursor,do_self,cursor
  .long cursor,cursor,do_self,cursor
  .long cursor,cursor,cursor,cursor
- .long none,none,do_self,func
- .long func,none,none,none
+ .long none,none,do_self,toggle_output_mask
+ .long toggle_input_mask,none,none,none
  .long none,none,none,none
  .long none,none,none,none
  .long none,none,none,none
