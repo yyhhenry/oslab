@@ -135,6 +135,14 @@ void main(void)		/* This really IS void, no error here. */
 	floppy_init();
 	sti();
 	move_to_user_mode();
+
+	/* Add this for precess.log */
+	setup((void *)&drive_info);
+	(void)open("/dev/tty0", O_RDWR, 0);
+	(void)dup(0);
+	(void)dup(0);
+	(void)open("/var/process.log", O_CREAT | O_TRUNC | O_WRONLY, 0666);
+
 	if (!fork()) {		/* we count on this going ok */
 		init();
 	}
