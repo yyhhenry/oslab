@@ -20,10 +20,12 @@
  * won't be any messing with the stack from main(), but we define
  * some others too.
  */
-static inline _syscall0(int,fork)
-static inline _syscall0(int,pause)
-static inline _syscall1(int,setup,void *,BIOS)
-static inline _syscall0(int,sync)
+static inline _syscall0(int, fork);
+static inline _syscall0(int, pause);
+static inline _syscall1(int, setup, void *, BIOS);
+static inline _syscall0(int, sync);
+_syscall2(int, mkdir, const char *, name, mode_t, mode);
+_syscall3(int, mknod, const char *, filename, mode_t, mode, dev_t, dev);
 
 #include <linux/tty.h>
 #include <linux/sched.h>
@@ -39,7 +41,7 @@ static inline _syscall0(int,sync)
 
 #include <linux/fs.h>
 
-static char printbuf[1024];
+			static char printbuf[1024];
 
 extern int vsprintf();
 extern void init(void);
@@ -176,6 +178,8 @@ void init(void)
 	printf("%d buffers = %d bytes buffer space\n\r",NR_BUFFERS,
 		NR_BUFFERS*BLOCK_SIZE);
 	printf("Free mem: %d bytes\n\r",memory_end-main_memory_start);
+	mkdir("/proc", 0755);
+	mknod("/proc/psinfo", S_IFPROC | 0444, 0);
 	if (!(pid=fork())) {
 		close(0);
 		if (open("/etc/rc",O_RDONLY,0))
