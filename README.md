@@ -14,7 +14,7 @@
 
 需要更改磁盘镜像的实验，会提供`exp<id>/setup.sh`，并自动在磁盘镜像的`root`目录下提供类似`do_exp<id>.sh`的文件，以方便自动化完成实验，如果需要额外操作，请参考`exp<id>/`目录下所有`.md`文件。
 
-实验要求的简化版放在`env/task-docs/`中。
+配合[操作系统实验要求(重制简化版)](https://github.com/yyhhenry/oslab-tasks)使用，不再需要以全损格式查看原版实验要求。
 
 ## Usage
 
